@@ -1,0 +1,168 @@
+  <section class="step" id="step1">
+    <h2><span class="no">STEP 1</span>「〜まで繰り返す」を1行ずつ追う（2-3 問1）</h2>
+    <p class="desc">10以下の自然数の合計を求めるプログラムです。<strong>次の行で goukei がいくつになるか</strong>を予想してから進めましょう。</p>
+    <div class="panel">
+      <div class="btn-row" style="flex-wrap:wrap">
+        <button class="btn primary" id="aStep">1行すすめる ▶</button>
+        <button class="btn" id="aPlay">自動で動かす</button>
+        <button class="btn ghost" id="aReset">最初から</button>
+        <span class="badge" id="aProg"></span>
+      </div>
+      <label class="fld" for="aMax" style="margin-top:12px">いくつまで足すか：<span class="mono" id="aMaxV">10</span></label>
+      <input type="range" id="aMax" min="3" max="20" step="1" value="10">
+      <div class="grid c2" style="margin-top:12px">
+        <div>
+          <pre class="code" id="aCode"></pre>
+          <div class="note" id="aNote" style="margin-top:12px"></div>
+          <p class="qhead" style="margin:14px 0 6px">表示された内容</p>
+          <div class="outbox" id="aOut"></div>
+        </div>
+        <div>
+          <p class="qhead" style="margin:0 0 6px">トレース表</p>
+          <div class="tbl-scroll"><table class="trace" id="aTrace"></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step2">
+    <h2><span class="no">STEP 2</span>「〜の間繰り返す」を1行ずつ追う（2-3 問2）</h2>
+    <p class="desc">10以下の正の偶数の合計です。<strong>条件を先に確かめてから</strong>中に入る、という順番に注目してください。</p>
+    <div class="panel">
+      <div class="btn-row" style="flex-wrap:wrap">
+        <button class="btn primary" id="wStep">1行すすめる ▶</button>
+        <button class="btn" id="wPlay">自動で動かす</button>
+        <button class="btn ghost" id="wReset">最初から</button>
+        <span class="badge" id="wProg"></span>
+      </div>
+      <div class="grid c2" style="margin-top:12px">
+        <div>
+          <pre class="code" id="wCode"></pre>
+          <div class="note" id="wNote" style="margin-top:12px"></div>
+          <div class="outbox" id="wOut" style="margin-top:12px"></div>
+        </div>
+        <div>
+          <p class="qhead" style="margin:0 0 6px">トレース表</p>
+          <div class="tbl-scroll"><table class="trace" id="wTrace"></table></div>
+          <div class="note info" style="margin-top:12px">
+            <strong>i を増やす行を忘れると、条件がずっと真のままで終わりません</strong>（無限ループ）。
+            「〜の間繰り返す」では、条件に使う変数を必ず中で変えます。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step3">
+    <h2><span class="no">STEP 3</span>分岐は上から順に判定される（2-4）</h2>
+    <p class="desc">身長を変えると、どの行で止まるかが変わります。<strong>あてはまった時点で、それより下は見ません。</strong></p>
+    <div class="panel">
+      <label class="fld" for="hIn">身長：<span class="mono" id="hInV">125</span> cm</label>
+      <input type="range" id="hIn" min="90" max="170" step="1" value="125">
+      <div class="grid c2" style="margin-top:12px">
+        <div><pre class="code" id="hCode"></pre></div>
+        <div>
+          <div class="brview" id="hView"></div>
+          <div class="note" id="hNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+      <hr class="sep">
+      <p class="qhead">手荷物の料金を判定する（2-4 問2）</p>
+      <p class="desc" style="margin-top:0">三辺の合計が203cmを超える／重さが20kgを超える、の組み合わせで料金が決まります。</p>
+      <div class="grid3">
+        <div><label class="fld" for="ba">縦 a（cm）</label><input type="number" id="ba" value="60" min="0"></div>
+        <div><label class="fld" for="bb">横 b（cm）</label><input type="number" id="bb" value="45" min="0"></div>
+        <div><label class="fld" for="bc">高さ c（cm）</label><input type="number" id="bc" value="30" min="0"></div>
+        <div><label class="fld" for="bd">重さ d（kg）</label><input type="number" id="bd" value="18" min="0"></div>
+      </div>
+      <div class="grid c2" style="margin-top:12px">
+        <div><pre class="code" id="bCode"></pre></div>
+        <div>
+          <div class="brview" id="bView"></div>
+          <div class="note" id="bNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+      <div class="note warn" style="margin-top:12px">
+        <strong>順番がとても大事です。</strong>「両方に当てはまる場合」を先に書かないと、
+        先に「三辺が203cmを超える」で止まってしまい、16,000円になりません。
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step4">
+    <h2><span class="no">STEP 4</span>繰り返しの中の繰り返し（2-6）</h2>
+    <p class="desc">外側が1回まわるあいだに、内側は最後までまわります。範囲を変えて確かめましょう。</p>
+    <div class="panel">
+      <div class="grid c2">
+        <div>
+          <label class="fld" for="oi">外側 i：0 から <span class="mono" id="oiV">4</span> まで</label>
+          <input type="range" id="oi" min="0" max="6" step="1" value="4">
+          <label class="fld" for="oj" style="margin-top:10px">内側 j：0 から <span class="mono" id="ojV">1</span> まで</label>
+          <input type="range" id="oj" min="0" max="4" step="1" value="1">
+          <pre class="code" id="nCode" style="margin-top:12px"></pre>
+        </div>
+        <div>
+          <p class="qhead" style="margin:0 0 6px">できあがる文字列</p>
+          <div class="outbox" id="nOut"></div>
+          <div class="metrics" style="margin-top:12px">
+            <div class="metric"><div class="k">外側の回数</div><div class="v" id="nOi">—</div></div>
+            <div class="metric"><div class="k">内側の合計回数</div><div class="v" id="nOj">—</div></div>
+          </div>
+          <div class="note" id="nNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+      <hr class="sep">
+      <p class="qhead">数のほうもトレースする（2-6 問2）</p>
+      <div class="btn-row"><button class="btn primary" id="vStep">1行すすめる ▶</button><button class="btn ghost" id="vReset">最初から</button><span class="badge" id="vProg"></span></div>
+      <div class="grid c2" style="margin-top:12px">
+        <div><pre class="code" id="vCode"></pre><div class="note" id="vNote" style="margin-top:12px"></div></div>
+        <div><div class="tbl-scroll"><table class="trace" id="vTrace"></table></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step5">
+    <h2><span class="no">STEP 5</span>繰り返し×分岐で「全部ためす」（2-5）</h2>
+    <p class="desc">鶴亀算を、<strong>考えられる場合を全部ためして</strong>解きます。これが繰り返しと分岐を組み合わせる典型です。</p>
+    <div class="panel">
+      <div class="grid c2">
+        <div>
+          <label class="fld" for="tAtama">頭の数：<span class="mono" id="tAtamaV">10</span></label>
+          <input type="range" id="tAtama" min="3" max="20" step="1" value="10">
+          <label class="fld" for="tAshi" style="margin-top:10px">足の数：<span class="mono" id="tAshiV">28</span></label>
+          <input type="range" id="tAshi" min="6" max="80" step="2" value="28">
+          <pre class="code" id="tCode" style="margin-top:12px"></pre>
+        </div>
+        <div>
+          <div class="tbl-scroll"><table class="trace" id="tTrace"></table></div>
+          <div class="note" id="tNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="stepBook">
+    <h2><span class="no">本文</span>本文の問題を解く（2-3〜2-6）</h2>
+    <p class="desc">STEP 1〜5 の画面を見ながら答えましょう。</p>
+    <div class="panel" id="bookBox"></div>
+    <div class="note" id="bookNote" style="margin-top:10px"></div>
+  </section>
+
+  <section class="step" id="glossary">
+    <h2><span class="no">用語</span>この節で出てくることば</h2>
+    <div class="panel"><div id="glossBox"></div></div>
+  </section>
+
+  <section class="step" id="wrap">
+    <h2><span class="no">まとめ</span>おさえておきたいこと</h2>
+    <div class="panel">
+      <ul class="bullets">
+        <li>迷ったら<strong>トレース表</strong>。行番号と、変数の値を1行ずつ書き出せば必ず解けます。</li>
+        <li>「<strong>a から b まで</strong>くり返す」は <strong>b も含む</strong>。1から10なら10回です。</li>
+        <li>合計を求める形は <span class="mono">goukei = goukei + …</span>。<strong>右辺の goukei は「これまでの合計」</strong>です。</li>
+        <li>「〜の間くり返す」では、<strong>条件に使う変数を中で変える</strong>のを忘れないこと（忘れると終わりません）。</li>
+        <li>分岐は<strong>上から順に</strong>判定し、あてはまった時点で終わり。条件のきびしいものを先に書きます。</li>
+        <li>二重ループは、外側1回につき内側が全部まわる。回数は<strong>かけ算</strong>になります。</li>
+      </ul>
+    </div>
+  </section>
