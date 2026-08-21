@@ -141,6 +141,61 @@
     </div>
   </section>
 
+
+  <section class="step" id="stepPick">
+    <h2><span class="no">実験</span>解答群を実際に入れて動かしてみる（2-3 問1）</h2>
+    <p class="desc">選択肢を選ぶと、<strong>そのままプログラムが動きます</strong>。「なぜその選択肢ではだめなのか」を、結果を見て確かめましょう。</p>
+    <div class="panel">
+      <div class="grid c21">
+        <div>
+          <p class="qhead" style="margin:0 0 6px">【ア】i をどこまで繰り返す？</p>
+          <div class="choice4" id="pkA"></div>
+          <p class="qhead" style="margin:16px 0 6px">【イ】goukei に何を入れる？</p>
+          <div class="choice4" id="pkB"></div>
+          <pre class="code" id="pkCode" style="margin-top:14px"></pre>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><div class="k">このプログラムの結果</div><div class="v" id="pkOut">—</div></div>
+            <div class="metric"><div class="k">正しい答え</div><div class="v" id="pkWant">55</div></div>
+          </div>
+          <div class="tbl-scroll" style="margin-top:12px"><table class="trace" id="pkTrace"></table></div>
+          <div class="note" id="pkNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="stepOrder">
+    <h2><span class="no">実験</span>条件を書く順番を入れかえると（2-4）</h2>
+    <p class="desc">分岐は<strong>上から順に</strong>判定され、最初に当てはまったところで終わります。順番を変えると誰が困るでしょうか。</p>
+    <div class="panel">
+      <div class="btn-row" style="flex-wrap:wrap">
+        <button class="btn primary" data-ord="ok">110未満 → 130未満 →（正しい順）</button>
+        <button class="btn" data-ord="swap">130未満 → 110未満 →</button>
+      </div>
+      <div class="grid c21" style="margin-top:14px">
+        <div><pre class="code" id="odCode"></pre></div>
+        <div>
+          <div class="tbl-scroll"><table class="trace" id="odTable"></table></div>
+          <div class="note" id="odNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="stepGuess">
+    <h2><span class="no">予想</span>やる前に予想してみる</h2>
+    <p class="desc">先に自分で答えを出してから動かすと、手順が頭に残ります。</p>
+    <div class="panel">
+      <div id="pd1"></div>
+      <hr class="sep">
+      <div id="pd2"></div>
+      <hr class="sep">
+      <div id="pd3"></div>
+    </div>
+  </section>
+
   <section class="step" id="stepBook">
     <h2><span class="no">本文</span>本文の問題を解く（2-3〜2-6）</h2>
     <p class="desc">STEP 1〜5 の画面を見ながら答えましょう。</p>

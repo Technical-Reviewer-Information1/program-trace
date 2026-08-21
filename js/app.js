@@ -190,6 +190,98 @@
       : 'この頭と足の組み合わせでは、あてはまるものがありません。足の数は<strong>偶数</strong>で、頭×2 以上・頭×4 以下である必要があります。';
   }
 
+
+  /* ============ 実験1：解答群を実際に入れて動かす（2-3 問1） ============ */
+  const PKA = [{ t: '9', v: 9 }, { t: '10', v: 10 }];
+  const PKB = [
+    { t: 'goukei + i', f: (g, i) => g + i },
+    { t: 'goukei + 1', f: (g) => g + 1 },
+    { t: 'goukei − 1', f: (g) => g - 1 },
+    { t: 'i', f: (g, i) => i }
+  ];
+  const PK = { a: 0, b: 3 };
+
+  function drawPk() {
+    const mark = '⓪①②③④⑤⑥⑦';
+    $('pkA').innerHTML = PKA.map((c, j) =>
+      '<button class="btn' + (PK.a === j ? ' on' : '') + '" data-pa="' + j + '">' + mark[j] + '　' + c.t + '</button>').join('');
+    $('pkB').innerHTML = PKB.map((c, j) =>
+      '<button class="btn' + (PK.b === j ? ' on' : '') + '" data-pb="' + j + '">' + mark[j] + '　' + c.t + '</button>').join('');
+    $('pkA').querySelectorAll('[data-pa]').forEach(b => b.addEventListener('click', () => { PK.a = +b.dataset.pa; drawPk(); }));
+    $('pkB').querySelectorAll('[data-pb]').forEach(b => b.addEventListener('click', () => { PK.b = +b.dataset.pb; drawPk(); }));
+
+    const A = PKA[PK.a], B = PKB[PK.b];
+    code('pkCode', [
+      'goukei = 0',
+      'i を 1 から ' + A.t + ' まで 1 ずつ増やしながら繰り返す:',
+      '└ goukei = ' + B.t,
+      '表示する("合計値：", goukei)'
+    ], 3);
+
+    let g = 0; const rows = [];
+    for (let i = 1; i <= A.v; i++) { const before = g; g = B.f(g, i); rows.push([i, before, g]); }
+    $('pkTrace').innerHTML = '<thead><tr><th>i</th><th>前の goukei</th><th>後の goukei</th></tr></thead><tbody>' +
+      rows.map(r => '<tr>' + r.map(x => '<td>' + x + '</td>').join('') + '</tr>').join('') + '</tbody>';
+    $('pkOut').textContent = g;
+
+    const ok = PK.a === 1 && PK.b === 0;
+    const n = $('pkNote');
+    n.className = 'note ' + (ok ? 'ok' : 'ng');
+    if (ok) {
+      n.innerHTML = '<strong>正解の組み合わせです。</strong>1＋2＋…＋10 ＝ 55。' +
+        '「10以下の自然数」なので 10 を<strong>含めて</strong>繰り返し、goukei には<strong>i そのもの</strong>を足していきます。';
+    } else if (PK.b === 1) {
+      n.innerHTML = '結果は <strong>' + g + '</strong>。これは合計ではなく<strong>繰り返した回数</strong>です。' +
+        '毎回 1 しか足していないので、i の値が使われていません。';
+    } else if (PK.b === 2) {
+      n.innerHTML = '結果は <strong>' + g + '</strong>。1 ずつ減っているので<strong>負の数</strong>になりました。足し算と引き算の取りちがえです。';
+    } else if (PK.b === 3) {
+      n.innerHTML = '結果は <strong>' + g + '</strong>。これは<strong>最後の i の値</strong>です。' +
+        '<span class="mono">goukei = i</span> だと、前まで足したものが毎回<strong>消えてしまいます</strong>。' +
+        '「goukei ＝ goukei ＋ …」の形が「積み上げる」の意味です。';
+    } else {
+      n.innerHTML = '結果は <strong>' + g + '</strong>。正しい 55 より <strong>' + (55 - g) + '</strong> 少なくなりました。' +
+        '「10<strong>以下</strong>」なので、10 も含めなければいけません。';
+    }
+  }
+
+  /* ============ 実験2：条件の順番（2-4） ============ */
+  const OD_PEOPLE = [{ h: 105, want: '乗車できません' }, { h: 125, want: '保護者同伴で乗車できます' }, { h: 140, want: '一人で乗車できます' }];
+  function judgeOrd(h, kind) {
+    if (kind === 'ok') {
+      if (h < 110) return '乗車できません';
+      if (h < 130) return '保護者同伴で乗車できます';
+      return '一人で乗車できます';
+    }
+    if (h < 130) return '保護者同伴で乗車できます';
+    if (h < 110) return '乗車できません';
+    return '一人で乗車できます';
+  }
+  function drawOd(kind) {
+    const L = kind === 'ok'
+      ? ['もし shinchou < 110 ならば:', '│ 表示する("乗車できません")', 'そうでなくもし shinchou < 130 ならば:',
+         '│ 表示する("保護者同伴で乗車できます")', 'そうでなければ:', '└ 表示する("一人で乗車できます")']
+      : ['もし shinchou < 130 ならば:', '│ 表示する("保護者同伴で乗車できます")', 'そうでなくもし shinchou < 110 ならば:',
+         '│ 表示する("乗車できません")', 'そうでなければ:', '└ 表示する("一人で乗車できます")'];
+    code('odCode', L, 0);
+    let bad = 0;
+    $('odTable').innerHTML = '<thead><tr><th>身長</th><th>このプログラムの判定</th><th>本来の判定</th></tr></thead><tbody>' +
+      OD_PEOPLE.map(function (p) {
+        const got = judgeOrd(p.h, kind), ng = got !== p.want;
+        if (ng) bad++;
+        return '<tr' + (ng ? ' style="background:var(--ng-bg)"' : '') + '><td>' + p.h + ' cm</td>' +
+          '<td' + (ng ? ' style="color:var(--ng);font-weight:700"' : '') + '>' + got + '</td><td>' + p.want + '</td></tr>';
+      }).join('') + '</tbody>';
+    const n = $('odNote');
+    n.className = 'note ' + (bad ? 'ng' : 'ok');
+    n.innerHTML = bad
+      ? '<strong>105 cm の人が「保護者同伴で乗車できます」になってしまいました。</strong>' +
+        '105 は 130 より小さいので、<strong>1つ目の条件で当たってしまい</strong>、2つ目の「110未満」まで進まないのです。' +
+        '<br>範囲で分けるときは<strong>せまいほう（きびしいほう）から先に</strong>書きます。'
+      : '<strong>3人とも正しく判定できました。</strong>「そうでなくもし」は、前の条件に当てはまらなかった人だけが進みます。' +
+        'だから2つ目の条件は「110以上 かつ 130未満」を意味しています。';
+  }
+
   function init() {
     const aReset = stepper('a', aBuild, aRender);
     $('aMax').addEventListener('input', () => { $('aMaxV').textContent = $('aMax').value; aReset(); });
@@ -199,6 +291,45 @@
     ['ba', 'bb', 'bc', 'bd'].forEach(i => $(i).addEventListener('input', drawB)); drawB();
     ['oi', 'oj'].forEach(i => $(i).addEventListener('input', drawN)); drawN();
     ['tAtama', 'tAshi'].forEach(i => $(i).addEventListener('input', drawT)); drawT();
+
+    drawPk();
+    document.querySelectorAll('[data-ord]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-ord]').forEach(x => x.classList.toggle('primary', x === b));
+        drawOd(b.dataset.ord);
+      });
+    });
+    drawOd('ok');
+
+    Predict.make('pd1', {
+      q: '1 から 10 までの自然数をぜんぶ足すと、いくつになりますか。',
+      type: 'num', unit: '', placeholder: '答え',
+      answer: function () { let g = 0; for (let i = 1; i <= 10; i++) g += i; return g; },
+      show: function () { return '1＋10 ＝ 11、2＋9 ＝ 11 …と5組できるので 11×5 ＝ 55。STEP 1 で1行ずつ確かめられます。'; },
+      why: 'プログラムは <span class="mono">goukei = goukei + i</span> を10回くり返して、この計算をしています。'
+    });
+
+    Predict.make('pd2', {
+      q: '(01) moji = "" から始めて、外側5回・内側2回のくり返しで "A"・"B" をつなげると？',
+      type: 'pick',
+      ch: ['AAAAABB', 'AAAAB', 'ABBABBABBABB', 'ABBABBABBABBABB'],
+      answer: function () { return 3; },
+      show: function () { return 'STEP 4 の外側・内側の回数を変えて動かすと、そのつど確かめられます。'; },
+      why: '外側1回につき「A」1個と「B」2個で <strong>ABB</strong>。それが5回くり返されるので <strong>ABB×5 ＝ 15文字</strong>です。' +
+           '②は4回分しかありません。'
+    });
+
+    Predict.make('pd3', {
+      q: '頭が10、足が28のとき、鶴は何羽ですか。',
+      type: 'num', unit: '羽', placeholder: '羽',
+      answer: function () {
+        for (let t = 0; t <= 10; t++) { const k = 10 - t; if (t * 2 + k * 4 === 28) return t; }
+        return -1;
+      },
+      show: function () { return '鶴6羽・亀4匹。足は 6×2 ＋ 4×4 ＝ 12 ＋ 16 ＝ 28 本です。'; },
+      why: 'プログラムは tsuru を 0 から 10 まで<strong>全部ためして</strong>います。' +
+           '式を立てなくても、<strong>数え上げれば必ず見つかる</strong>のがコンピュータの強みです。'
+    });
 
     Quiz.choice('bookBox', 'bookNote', [
       { k: '2-3 ア', q: '10以下の自然数の合計。i を 1 からいくつまで繰り返すか。',

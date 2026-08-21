@@ -6,7 +6,7 @@
 <title>プログラムを1行ずつ追う（トレース）｜情報Ⅰ共通テスト対策問題集</title>
 <meta name="description" content="変数の値がどう変わるかを1行ずつ表にしていきます。繰り返しと分岐は、これができれば必ず解けます。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%2315181c%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2218%22 font-family=%22monospace%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E01%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=239696b1">
+<link rel="stylesheet" href="css/style.css?v=ea93572e">
 <link rel="stylesheet" href="css/app.css?v=a3b78b3d">
 </head>
 <body>
@@ -164,6 +164,61 @@
     </div>
   </section>
 
+
+  <section class="step" id="stepPick">
+    <h2><span class="no">実験</span>解答群を実際に入れて動かしてみる（2-3 問1）</h2>
+    <p class="desc">選択肢を選ぶと、<strong>そのままプログラムが動きます</strong>。「なぜその選択肢ではだめなのか」を、結果を見て確かめましょう。</p>
+    <div class="panel">
+      <div class="grid c21">
+        <div>
+          <p class="qhead" style="margin:0 0 6px">【ア】i をどこまで繰り返す？</p>
+          <div class="choice4" id="pkA"></div>
+          <p class="qhead" style="margin:16px 0 6px">【イ】goukei に何を入れる？</p>
+          <div class="choice4" id="pkB"></div>
+          <pre class="code" id="pkCode" style="margin-top:14px"></pre>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><div class="k">このプログラムの結果</div><div class="v" id="pkOut">—</div></div>
+            <div class="metric"><div class="k">正しい答え</div><div class="v" id="pkWant">55</div></div>
+          </div>
+          <div class="tbl-scroll" style="margin-top:12px"><table class="trace" id="pkTrace"></table></div>
+          <div class="note" id="pkNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="stepOrder">
+    <h2><span class="no">実験</span>条件を書く順番を入れかえると（2-4）</h2>
+    <p class="desc">分岐は<strong>上から順に</strong>判定され、最初に当てはまったところで終わります。順番を変えると誰が困るでしょうか。</p>
+    <div class="panel">
+      <div class="btn-row" style="flex-wrap:wrap">
+        <button class="btn primary" data-ord="ok">110未満 → 130未満 →（正しい順）</button>
+        <button class="btn" data-ord="swap">130未満 → 110未満 →</button>
+      </div>
+      <div class="grid c21" style="margin-top:14px">
+        <div><pre class="code" id="odCode"></pre></div>
+        <div>
+          <div class="tbl-scroll"><table class="trace" id="odTable"></table></div>
+          <div class="note" id="odNote" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="stepGuess">
+    <h2><span class="no">予想</span>やる前に予想してみる</h2>
+    <p class="desc">先に自分で答えを出してから動かすと、手順が頭に残ります。</p>
+    <div class="panel">
+      <div id="pd1"></div>
+      <hr class="sep">
+      <div id="pd2"></div>
+      <hr class="sep">
+      <div id="pd3"></div>
+    </div>
+  </section>
+
   <section class="step" id="stepBook">
     <h2><span class="no">本文</span>本文の問題を解く（2-3〜2-6）</h2>
     <p class="desc">STEP 1〜5 の画面を見ながら答えましょう。</p>
@@ -195,15 +250,15 @@
     <div class="use-note">
       <h3>授業で</h3>
       <ul>
-        <li>STEP 1 で「次の行で goukei はいくつになる？」と予想させてから1手すすめる。</li>
-        <li>STEP 3 は身長の値を変えながら、どの行で止まるかを全員で確認する。</li>
-        <li>STEP 4 の二重ループは、内側が何回まわるかを数えてから実行させる。</li>
+        <li>「予想」セクションを先に解かせ、そのあと STEP 1〜5 で1行ずつ確かめる。</li>
+        <li>「実験：解答群を実際に入れて動かす」で誤答の選択肢を選ばせ、なぜだめかを結果から説明させる。</li>
+        <li>「実験：条件を書く順番」で 105 cm の人がどう判定されるかを予想させてから入れかえる。</li>
       </ul>
       <h3 style="margin-top:12px">探究で</h3>
       <ul>
-        <li>自分でトレース表を紙に書いてから、アプリの表と見比べる。</li>
-        <li>STEP 5 の総当たりで、頭の数を増やすと調べる回数がどう増えるかを調べる。</li>
-        <li>同じ結果になる別の書き方（繰り返しの向きを変えるなど）を考えて試す。</li>
+        <li>身のまわりの手順（自動販売機、改札、料金計算）を分岐と繰り返しで書き、トレース表で確かめる。</li>
+        <li>鶴亀算の頭と足を変え、答えがない場合・複数ある場合の条件を調べる。</li>
+        <li>同じ結果になる別の書き方をつくり、どちらが読みやすいかを比べる。</li>
       </ul>
     </div>
   </section>
@@ -215,7 +270,8 @@
 </footer>
 
 <script src="js/terms.js?v=867e9694"></script>
-<script src="js/quiz.js?v=5d6779cc"></script>
-<script src="js/app.js?v=119621f2"></script>
+<script src="js/quiz.js?v=13402362"></script>
+<script src="js/predict.js?v=1b9c8bf0"></script>
+<script src="js/app.js?v=045091f9"></script>
 </body>
 </html>
