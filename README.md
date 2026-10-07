@@ -1,6 +1,6 @@
 # プログラムを1行ずつ追う（トレース）
 
-『大学入学共通テスト「情報Ⅰ」対策問題集』（技術評論社, ISBN 978-4-297-15084-6）pp.56-67 連動Webアプリ。
+『大学入学共通テスト「情報Ⅰ」対策問題集』（技術評論社, ISBN 978-4-297-15084-6）pp.54-62 連動Webアプリ。
 
 **公開URL**: https://technical-reviewer-information1.github.io/program-trace/
 

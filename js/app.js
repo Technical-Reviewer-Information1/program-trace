@@ -381,6 +381,8 @@
 
     window.Terms.glossary($('glossBox'), ['アルゴリズム', '変数', 'トレース', '配列', '添字', '関数']);
     window.Terms.attach();
+    const target = location.hash && document.querySelector(location.hash);
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
